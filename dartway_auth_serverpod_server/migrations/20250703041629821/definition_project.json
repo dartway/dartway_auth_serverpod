@@ -1,0 +1,90 @@
+{
+  "moduleName": "dartway_auth_serverpod",
+  "tables": [
+    {
+      "name": "dw_phone_auth",
+      "dartName": "DwPhoneAuth",
+      "module": "dartway_auth_serverpod",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 6,
+          "isNullable": false,
+          "columnDefault": "nextval('dw_phone_auth_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "phoneNumber",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "String"
+        },
+        {
+          "name": "hash",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "String"
+        },
+        {
+          "name": "expirationTime",
+          "columnType": 4,
+          "isNullable": false,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "isUsed",
+          "columnType": 1,
+          "isNullable": false,
+          "columnDefault": "false",
+          "dartType": "bool"
+        },
+        {
+          "name": "userExtraData",
+          "columnType": 8,
+          "isNullable": true,
+          "dartType": "Map<String,String>?"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "dw_phone_auth_pkey",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true
+        },
+        {
+          "indexName": "serverpod_phone_auth_phone",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "phoneNumber"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false
+        }
+      ],
+      "managed": true
+    }
+  ],
+  "installedModules": [
+    {
+      "module": "serverpod",
+      "version": "20240516151843329"
+    },
+    {
+      "module": "serverpod_auth",
+      "version": "20240520102713718"
+    }
+  ],
+  "migrationApiVersion": 1
+}

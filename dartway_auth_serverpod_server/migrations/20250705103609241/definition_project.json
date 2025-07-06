@@ -1,0 +1,223 @@
+{
+  "moduleName": "dartway_auth_serverpod",
+  "tables": [
+    {
+      "name": "dw_phone_failed_sign_in",
+      "dartName": "DwPhoneFailedSignIn",
+      "module": "dartway_auth_serverpod",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 6,
+          "isNullable": false,
+          "columnDefault": "nextval('dw_phone_failed_sign_in_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "phoneNumber",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "String"
+        },
+        {
+          "name": "time",
+          "columnType": 4,
+          "isNullable": false,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "ipAddress",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "String"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "dw_phone_failed_sign_in_pkey",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true
+        },
+        {
+          "indexName": "serverpod_phone_failed_sign_in_email_idx",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "phoneNumber"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false
+        },
+        {
+          "indexName": "serverpod_phone_failed_sign_in_time_idx",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "time"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "dw_phone_verification_request",
+      "dartName": "DwPhoneVerificationRequest",
+      "module": "dartway_auth_serverpod",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 6,
+          "isNullable": false,
+          "columnDefault": "nextval('dw_phone_verification_request_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "requestType",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "protocol:DwPhoneVerificationRequestType"
+        },
+        {
+          "name": "phoneNumber",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "String"
+        },
+        {
+          "name": "hash",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "String"
+        },
+        {
+          "name": "createdAt",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": "CURRENT_TIMESTAMP",
+          "dartType": "DateTime"
+        },
+        {
+          "name": "expirationTime",
+          "columnType": 4,
+          "isNullable": false,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "isUsed",
+          "columnType": 1,
+          "isNullable": false,
+          "columnDefault": "false",
+          "dartType": "bool"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "dw_phone_verification_request_pkey",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true
+        },
+        {
+          "indexName": "serverpod_phone_auth_phone",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "phoneNumber"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "dw_registration_data_stash",
+      "dartName": "DwRegistrationDataStash",
+      "module": "dartway_auth_serverpod",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 6,
+          "isNullable": false,
+          "columnDefault": "nextval('dw_registration_data_stash_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "userIdentifier",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "String"
+        },
+        {
+          "name": "createdAt",
+          "columnType": 4,
+          "isNullable": false,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "data",
+          "columnType": 8,
+          "isNullable": false,
+          "dartType": "Map<String,String>"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "dw_registration_data_stash_pkey",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true
+        }
+      ],
+      "managed": true
+    }
+  ],
+  "installedModules": [
+    {
+      "module": "dartway_auth_serverpod",
+      "version": "20250704055919594"
+    },
+    {
+      "module": "serverpod",
+      "version": "20240516151843329"
+    },
+    {
+      "module": "serverpod_auth",
+      "version": "20240520102713718"
+    }
+  ],
+  "migrationApiVersion": 1
+}

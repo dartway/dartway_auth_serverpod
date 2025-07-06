@@ -1,0 +1,120 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "dw_registration_data_stash"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "dw_auth_data_stash",
+        "dartName": "DwAuthDataStash",
+        "module": "dartway_auth_serverpod",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('dw_auth_data_stash_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "type",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "identifier",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "createdAt",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "data",
+            "columnType": 8,
+            "isNullable": false,
+            "dartType": "Map<String,String>"
+          }
+        ],
+        "foreignKeys": [],
+        "indexes": [
+          {
+            "indexName": "dw_auth_data_stash_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "dw_phone_verification_request",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "stashDataId",
+            "columnType": 6,
+            "isNullable": true,
+            "dartType": "int?"
+          }
+        ],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "dw_phone_verification_request_fk_0",
+            "columns": [
+              "stashDataId"
+            ],
+            "referenceTable": "dw_auth_data_stash",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "tableDropped",
+            "message": "Table \"dw_registration_data_stash\" will be dropped.",
+            "table": "dw_registration_data_stash",
+            "columns": [],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "Table \"dw_registration_data_stash\" will be dropped.",
+      "table": "dw_registration_data_stash",
+      "columns": [],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

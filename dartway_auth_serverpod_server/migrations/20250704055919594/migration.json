@@ -1,0 +1,95 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "dw_phone_auth"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "dw_phone_verification_request",
+        "dartName": "DwPhoneVerificationRequest",
+        "module": "dartway_auth_serverpod",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('dw_phone_verification_request_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "requestType",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:DwPhoneVerificationRequestType"
+          },
+          {
+            "name": "phoneNumber",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "hash",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "expirationTime",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "isUsed",
+            "columnType": 1,
+            "isNullable": false,
+            "columnDefault": "false",
+            "dartType": "bool"
+          }
+        ],
+        "foreignKeys": [],
+        "indexes": [
+          {
+            "indexName": "dw_phone_verification_request_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          },
+          {
+            "indexName": "serverpod_phone_auth_phone",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "phoneNumber"
+              }
+            ],
+            "type": "btree",
+            "isUnique": false,
+            "isPrimary": false
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "Table \"dw_phone_auth\" will be dropped.",
+      "table": "dw_phone_auth",
+      "columns": [],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

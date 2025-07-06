@@ -1,0 +1,5 @@
+phoneAuth:
+  - requestVerification:
+  - verifyWithOneTimePassword:
+  - createVerificationStream:
+  - forceVerification:

@@ -1,0 +1,4 @@
+type: module
+nickname: dartway_auth_serverpod
+
+client_package_path: ../dartway_auth_serverpod_client

@@ -1,0 +1,29 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "dw_phone_verification_request",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "createdAt",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "CURRENT_TIMESTAMP",
+            "dartType": "DateTime"
+          }
+        ],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": []
+      }
+    }
+  ],
+  "warnings": [],
+  "migrationApiVersion": 1
+}
