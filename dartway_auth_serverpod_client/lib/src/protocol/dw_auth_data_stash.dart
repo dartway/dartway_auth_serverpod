@@ -55,6 +55,9 @@ abstract class DwAuthDataStash implements _i1.SerializableModel {
 
   Map<String, String> data;
 
+  /// Returns a shallow copy of this [DwAuthDataStash]
+  /// with some or all fields replaced by the given arguments.
+  @_i1.useResult
   DwAuthDataStash copyWith({
     int? id,
     String? type,
@@ -96,6 +99,9 @@ class _DwAuthDataStashImpl extends DwAuthDataStash {
           data: data,
         );
 
+  /// Returns a shallow copy of this [DwAuthDataStash]
+  /// with some or all fields replaced by the given arguments.
+  @_i1.useResult
   @override
   DwAuthDataStash copyWith({
     Object? id = _Undefined,

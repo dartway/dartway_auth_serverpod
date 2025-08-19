@@ -51,6 +51,9 @@ abstract class DwPhoneFailedSignIn implements _i1.SerializableModel {
   /// The IP address of the sign in attempt.
   String ipAddress;
 
+  /// Returns a shallow copy of this [DwPhoneFailedSignIn]
+  /// with some or all fields replaced by the given arguments.
+  @_i1.useResult
   DwPhoneFailedSignIn copyWith({
     int? id,
     String? phoneNumber,
@@ -88,6 +91,9 @@ class _DwPhoneFailedSignInImpl extends DwPhoneFailedSignIn {
           ipAddress: ipAddress,
         );
 
+  /// Returns a shallow copy of this [DwPhoneFailedSignIn]
+  /// with some or all fields replaced by the given arguments.
+  @_i1.useResult
   @override
   DwPhoneFailedSignIn copyWith({
     Object? id = _Undefined,

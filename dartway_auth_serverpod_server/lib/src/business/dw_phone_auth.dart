@@ -241,6 +241,8 @@ class DwPhoneAuth {
       include: DwPhoneVerificationRequest.include(
         stashData: DwAuthDataStash.include(),
       ),
+      orderBy: (t) => t.createdAt,
+      orderDescending: true,
     );
   }
 

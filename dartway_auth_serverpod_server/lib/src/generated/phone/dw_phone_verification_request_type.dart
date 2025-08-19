@@ -21,15 +21,15 @@ enum DwPhoneVerificationRequestType implements _i1.SerializableModel {
   static DwPhoneVerificationRequestType fromJson(String name) {
     switch (name) {
       case 'registration':
-        return registration;
+        return DwPhoneVerificationRequestType.registration;
       case 'signIn':
-        return signIn;
+        return DwPhoneVerificationRequestType.signIn;
       case 'passwordReset':
-        return passwordReset;
+        return DwPhoneVerificationRequestType.passwordReset;
       case 'changePhoneNumber':
-        return changePhoneNumber;
+        return DwPhoneVerificationRequestType.changePhoneNumber;
       case 'other':
-        return other;
+        return DwPhoneVerificationRequestType.other;
       default:
         throw ArgumentError(
             'Value "$name" cannot be converted to "DwPhoneVerificationRequestType"');

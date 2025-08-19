@@ -10,7 +10,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import '../protocol.dart' as _i2;
+import '../phone/dw_phone_verification_request_type.dart' as _i2;
+import '../dw_auth_data_stash.dart' as _i3;
 
 /// Database bindings for a sign in with phone.
 abstract class DwPhoneVerificationRequest implements _i1.SerializableModel {
@@ -35,7 +36,7 @@ abstract class DwPhoneVerificationRequest implements _i1.SerializableModel {
     DateTime? createdAt,
     required DateTime expirationTime,
     int? stashDataId,
-    _i2.DwAuthDataStash? stashData,
+    _i3.DwAuthDataStash? stashData,
     bool? isUsed,
   }) = _DwPhoneVerificationRequestImpl;
 
@@ -54,7 +55,7 @@ abstract class DwPhoneVerificationRequest implements _i1.SerializableModel {
       stashDataId: jsonSerialization['stashDataId'] as int?,
       stashData: jsonSerialization['stashData'] == null
           ? null
-          : _i2.DwAuthDataStash.fromJson(
+          : _i3.DwAuthDataStash.fromJson(
               (jsonSerialization['stashData'] as Map<String, dynamic>)),
       isUsed: jsonSerialization['isUsed'] as bool,
     );
@@ -82,11 +83,14 @@ abstract class DwPhoneVerificationRequest implements _i1.SerializableModel {
 
   int? stashDataId;
 
-  _i2.DwAuthDataStash? stashData;
+  _i3.DwAuthDataStash? stashData;
 
   /// If the otp has been used
   bool isUsed;
 
+  /// Returns a shallow copy of this [DwPhoneVerificationRequest]
+  /// with some or all fields replaced by the given arguments.
+  @_i1.useResult
   DwPhoneVerificationRequest copyWith({
     int? id,
     _i2.DwPhoneVerificationRequestType? requestType,
@@ -95,7 +99,7 @@ abstract class DwPhoneVerificationRequest implements _i1.SerializableModel {
     DateTime? createdAt,
     DateTime? expirationTime,
     int? stashDataId,
-    _i2.DwAuthDataStash? stashData,
+    _i3.DwAuthDataStash? stashData,
     bool? isUsed,
   });
   @override
@@ -130,7 +134,7 @@ class _DwPhoneVerificationRequestImpl extends DwPhoneVerificationRequest {
     DateTime? createdAt,
     required DateTime expirationTime,
     int? stashDataId,
-    _i2.DwAuthDataStash? stashData,
+    _i3.DwAuthDataStash? stashData,
     bool? isUsed,
   }) : super._(
           id: id,
@@ -144,6 +148,9 @@ class _DwPhoneVerificationRequestImpl extends DwPhoneVerificationRequest {
           isUsed: isUsed,
         );
 
+  /// Returns a shallow copy of this [DwPhoneVerificationRequest]
+  /// with some or all fields replaced by the given arguments.
+  @_i1.useResult
   @override
   DwPhoneVerificationRequest copyWith({
     Object? id = _Undefined,
@@ -164,7 +171,7 @@ class _DwPhoneVerificationRequestImpl extends DwPhoneVerificationRequest {
       createdAt: createdAt ?? this.createdAt,
       expirationTime: expirationTime ?? this.expirationTime,
       stashDataId: stashDataId is int? ? stashDataId : this.stashDataId,
-      stashData: stashData is _i2.DwAuthDataStash?
+      stashData: stashData is _i3.DwAuthDataStash?
           ? stashData
           : this.stashData?.copyWith(),
       isUsed: isUsed ?? this.isUsed,

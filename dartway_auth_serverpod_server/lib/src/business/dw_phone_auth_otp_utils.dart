@@ -29,6 +29,9 @@ class DwPhoneAuthOtpUtils {
     var isValid = hash == hashedData;
 
     if (!isValid) {
+      session.log(
+        "Expected hash for $phoneNumber with otp $otp was $hashedData but actual hash wah $hash",
+      );
       session.db.insertRow(
         DwPhoneFailedSignIn(
           phoneNumber: phoneNumber,

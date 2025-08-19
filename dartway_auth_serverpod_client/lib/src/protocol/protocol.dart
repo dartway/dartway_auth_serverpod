@@ -8,8 +8,7 @@
 // ignore_for_file: type_literal_in_constant_pattern
 // ignore_for_file: use_super_parameters
 
-library protocol; // ignore_for_file: no_leading_underscores_for_library_prefixes
-
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dw_auth_data_stash.dart' as _i2;
 import 'phone/dw_phone_failed_sign_in.dart' as _i3;
@@ -66,19 +65,13 @@ class Protocol extends _i1.SerializationManager {
     }
     if (t == Map<String, String>) {
       return (data as Map).map((k, v) =>
-          MapEntry(deserialize<String>(k), deserialize<String>(v))) as dynamic;
+          MapEntry(deserialize<String>(k), deserialize<String>(v))) as T;
     }
     if (t == _i1.getType<Map<String, String>?>()) {
       return (data != null
           ? (data as Map).map((k, v) =>
               MapEntry(deserialize<String>(k), deserialize<String>(v)))
-          : null) as dynamic;
-    }
-    if (t == _i1.getType<Map<String, String>?>()) {
-      return (data != null
-          ? (data as Map).map((k, v) =>
-              MapEntry(deserialize<String>(k), deserialize<String>(v)))
-          : null) as dynamic;
+          : null) as T;
     }
     try {
       return _i6.Protocol().deserialize<T>(data, t);
@@ -111,20 +104,24 @@ class Protocol extends _i1.SerializationManager {
 
   @override
   dynamic deserializeByClassName(Map<String, dynamic> data) {
-    if (data['className'] == 'DwAuthDataStash') {
+    var dataClassName = data['className'];
+    if (dataClassName is! String) {
+      return super.deserializeByClassName(data);
+    }
+    if (dataClassName == 'DwAuthDataStash') {
       return deserialize<_i2.DwAuthDataStash>(data['data']);
     }
-    if (data['className'] == 'DwPhoneFailedSignIn') {
+    if (dataClassName == 'DwPhoneFailedSignIn') {
       return deserialize<_i3.DwPhoneFailedSignIn>(data['data']);
     }
-    if (data['className'] == 'DwPhoneVerificationRequest') {
+    if (dataClassName == 'DwPhoneVerificationRequest') {
       return deserialize<_i4.DwPhoneVerificationRequest>(data['data']);
     }
-    if (data['className'] == 'DwPhoneVerificationRequestType') {
+    if (dataClassName == 'DwPhoneVerificationRequestType') {
       return deserialize<_i5.DwPhoneVerificationRequestType>(data['data']);
     }
-    if (data['className'].startsWith('serverpod_auth.')) {
-      data['className'] = data['className'].substring(15);
+    if (dataClassName.startsWith('serverpod_auth.')) {
+      data['className'] = dataClassName.substring(15);
       return _i6.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);

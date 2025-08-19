@@ -57,21 +57,21 @@
     },
     {
       "name": "serverpod_auth_client",
-      "rootUri": "file:///D:/dev/pub_cache/hosted/pub.dev/serverpod_auth_client-2.1.5",
+      "rootUri": "file:///D:/dev/pub_cache/hosted/pub.dev/serverpod_auth_client-2.9.1",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.5"
     },
     {
       "name": "serverpod_client",
-      "rootUri": "file:///D:/dev/pub_cache/hosted/pub.dev/serverpod_client-2.1.5",
+      "rootUri": "file:///D:/dev/pub_cache/hosted/pub.dev/serverpod_client-2.9.1",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.5"
     },
     {
       "name": "serverpod_serialization",
-      "rootUri": "file:///D:/dev/pub_cache/hosted/pub.dev/serverpod_serialization-2.1.5",
+      "rootUri": "file:///D:/dev/pub_cache/hosted/pub.dev/serverpod_serialization-2.9.1",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.5"
     },
     {
       "name": "source_span",
@@ -146,7 +146,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2025-07-03T11:54:09.339497Z",
+  "generated": "2025-08-12T02:49:05.648102Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///D:/dev/flutter",

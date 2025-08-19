@@ -8,15 +8,16 @@
 // ignore_for_file: type_literal_in_constant_pattern
 // ignore_for_file: use_super_parameters
 
-// ignore_for_file: invalid_use_of_visible_for_testing_member
+// ignore_for_file: unnecessary_null_comparison
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
-import '../protocol.dart' as _i2;
+import '../phone/dw_phone_verification_request_type.dart' as _i2;
+import '../dw_auth_data_stash.dart' as _i3;
 
 /// Database bindings for a sign in with phone.
 abstract class DwPhoneVerificationRequest
-    implements _i1.TableRow, _i1.ProtocolSerialization {
+    implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   DwPhoneVerificationRequest._({
     this.id,
     required this.requestType,
@@ -38,7 +39,7 @@ abstract class DwPhoneVerificationRequest
     DateTime? createdAt,
     required DateTime expirationTime,
     int? stashDataId,
-    _i2.DwAuthDataStash? stashData,
+    _i3.DwAuthDataStash? stashData,
     bool? isUsed,
   }) = _DwPhoneVerificationRequestImpl;
 
@@ -57,7 +58,7 @@ abstract class DwPhoneVerificationRequest
       stashDataId: jsonSerialization['stashDataId'] as int?,
       stashData: jsonSerialization['stashData'] == null
           ? null
-          : _i2.DwAuthDataStash.fromJson(
+          : _i3.DwAuthDataStash.fromJson(
               (jsonSerialization['stashData'] as Map<String, dynamic>)),
       isUsed: jsonSerialization['isUsed'] as bool,
     );
@@ -87,14 +88,17 @@ abstract class DwPhoneVerificationRequest
 
   int? stashDataId;
 
-  _i2.DwAuthDataStash? stashData;
+  _i3.DwAuthDataStash? stashData;
 
   /// If the otp has been used
   bool isUsed;
 
   @override
-  _i1.Table get table => t;
+  _i1.Table<int?> get table => t;
 
+  /// Returns a shallow copy of this [DwPhoneVerificationRequest]
+  /// with some or all fields replaced by the given arguments.
+  @_i1.useResult
   DwPhoneVerificationRequest copyWith({
     int? id,
     _i2.DwPhoneVerificationRequestType? requestType,
@@ -103,7 +107,7 @@ abstract class DwPhoneVerificationRequest
     DateTime? createdAt,
     DateTime? expirationTime,
     int? stashDataId,
-    _i2.DwAuthDataStash? stashData,
+    _i3.DwAuthDataStash? stashData,
     bool? isUsed,
   });
   @override
@@ -137,7 +141,7 @@ abstract class DwPhoneVerificationRequest
   }
 
   static DwPhoneVerificationRequestInclude include(
-      {_i2.DwAuthDataStashInclude? stashData}) {
+      {_i3.DwAuthDataStashInclude? stashData}) {
     return DwPhoneVerificationRequestInclude._(stashData: stashData);
   }
 
@@ -178,7 +182,7 @@ class _DwPhoneVerificationRequestImpl extends DwPhoneVerificationRequest {
     DateTime? createdAt,
     required DateTime expirationTime,
     int? stashDataId,
-    _i2.DwAuthDataStash? stashData,
+    _i3.DwAuthDataStash? stashData,
     bool? isUsed,
   }) : super._(
           id: id,
@@ -192,6 +196,9 @@ class _DwPhoneVerificationRequestImpl extends DwPhoneVerificationRequest {
           isUsed: isUsed,
         );
 
+  /// Returns a shallow copy of this [DwPhoneVerificationRequest]
+  /// with some or all fields replaced by the given arguments.
+  @_i1.useResult
   @override
   DwPhoneVerificationRequest copyWith({
     Object? id = _Undefined,
@@ -212,7 +219,7 @@ class _DwPhoneVerificationRequestImpl extends DwPhoneVerificationRequest {
       createdAt: createdAt ?? this.createdAt,
       expirationTime: expirationTime ?? this.expirationTime,
       stashDataId: stashDataId is int? ? stashDataId : this.stashDataId,
-      stashData: stashData is _i2.DwAuthDataStash?
+      stashData: stashData is _i3.DwAuthDataStash?
           ? stashData
           : this.stashData?.copyWith(),
       isUsed: isUsed ?? this.isUsed,
@@ -220,7 +227,7 @@ class _DwPhoneVerificationRequestImpl extends DwPhoneVerificationRequest {
   }
 }
 
-class DwPhoneVerificationRequestTable extends _i1.Table {
+class DwPhoneVerificationRequestTable extends _i1.Table<int?> {
   DwPhoneVerificationRequestTable({super.tableRelation})
       : super(tableName: 'dw_phone_verification_request') {
     requestType = _i1.ColumnEnum(
@@ -273,20 +280,20 @@ class DwPhoneVerificationRequestTable extends _i1.Table {
 
   late final _i1.ColumnInt stashDataId;
 
-  _i2.DwAuthDataStashTable? _stashData;
+  _i3.DwAuthDataStashTable? _stashData;
 
   /// If the otp has been used
   late final _i1.ColumnBool isUsed;
 
-  _i2.DwAuthDataStashTable get stashData {
+  _i3.DwAuthDataStashTable get stashData {
     if (_stashData != null) return _stashData!;
     _stashData = _i1.createRelationTable(
       relationFieldName: 'stashData',
       field: DwPhoneVerificationRequest.t.stashDataId,
-      foreignField: _i2.DwAuthDataStash.t.id,
+      foreignField: _i3.DwAuthDataStash.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.DwAuthDataStashTable(tableRelation: foreignTableRelation),
+          _i3.DwAuthDataStashTable(tableRelation: foreignTableRelation),
     );
     return _stashData!;
   }
@@ -313,17 +320,17 @@ class DwPhoneVerificationRequestTable extends _i1.Table {
 }
 
 class DwPhoneVerificationRequestInclude extends _i1.IncludeObject {
-  DwPhoneVerificationRequestInclude._({_i2.DwAuthDataStashInclude? stashData}) {
+  DwPhoneVerificationRequestInclude._({_i3.DwAuthDataStashInclude? stashData}) {
     _stashData = stashData;
   }
 
-  _i2.DwAuthDataStashInclude? _stashData;
+  _i3.DwAuthDataStashInclude? _stashData;
 
   @override
   Map<String, _i1.Include?> get includes => {'stashData': _stashData};
 
   @override
-  _i1.Table get table => DwPhoneVerificationRequest.t;
+  _i1.Table<int?> get table => DwPhoneVerificationRequest.t;
 }
 
 class DwPhoneVerificationRequestIncludeList extends _i1.IncludeList {
@@ -343,7 +350,7 @@ class DwPhoneVerificationRequestIncludeList extends _i1.IncludeList {
   Map<String, _i1.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table get table => DwPhoneVerificationRequest.t;
+  _i1.Table<int?> get table => DwPhoneVerificationRequest.t;
 }
 
 class DwPhoneVerificationRequestRepository {
@@ -353,6 +360,28 @@ class DwPhoneVerificationRequestRepository {
 
   final detachRow = const DwPhoneVerificationRequestDetachRowRepository._();
 
+  /// Returns a list of [DwPhoneVerificationRequest]s matching the given query parameters.
+  ///
+  /// Use [where] to specify which items to include in the return value.
+  /// If none is specified, all items will be returned.
+  ///
+  /// To specify the order of the items use [orderBy] or [orderByList]
+  /// when sorting by multiple columns.
+  ///
+  /// The maximum number of items can be set by [limit]. If no limit is set,
+  /// all items matching the query will be returned.
+  ///
+  /// [offset] defines how many items to skip, after which [limit] (or all)
+  /// items are read from the database.
+  ///
+  /// ```dart
+  /// var persons = await Persons.db.find(
+  ///   session,
+  ///   where: (t) => t.lastName.equals('Jones'),
+  ///   orderBy: (t) => t.firstName,
+  ///   limit: 100,
+  /// );
+  /// ```
   Future<List<DwPhoneVerificationRequest>> find(
     _i1.Session session, {
     _i1.WhereExpressionBuilder<DwPhoneVerificationRequestTable>? where,
@@ -371,11 +400,28 @@ class DwPhoneVerificationRequestRepository {
       orderDescending: orderDescending,
       limit: limit,
       offset: offset,
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
       include: include,
     );
   }
 
+  /// Returns the first matching [DwPhoneVerificationRequest] matching the given query parameters.
+  ///
+  /// Use [where] to specify which items to include in the return value.
+  /// If none is specified, all items will be returned.
+  ///
+  /// To specify the order use [orderBy] or [orderByList]
+  /// when sorting by multiple columns.
+  ///
+  /// [offset] defines how many items to skip, after which the next one will be picked.
+  ///
+  /// ```dart
+  /// var youngestPerson = await Persons.db.findFirstRow(
+  ///   session,
+  ///   where: (t) => t.lastName.equals('Jones'),
+  ///   orderBy: (t) => t.age,
+  /// );
+  /// ```
   Future<DwPhoneVerificationRequest?> findFirstRow(
     _i1.Session session, {
     _i1.WhereExpressionBuilder<DwPhoneVerificationRequestTable>? where,
@@ -392,11 +438,12 @@ class DwPhoneVerificationRequestRepository {
       orderByList: orderByList?.call(DwPhoneVerificationRequest.t),
       orderDescending: orderDescending,
       offset: offset,
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
       include: include,
     );
   }
 
+  /// Finds a single [DwPhoneVerificationRequest] by its [id] or null if no such row exists.
   Future<DwPhoneVerificationRequest?> findById(
     _i1.Session session,
     int id, {
@@ -405,11 +452,17 @@ class DwPhoneVerificationRequestRepository {
   }) async {
     return session.db.findById<DwPhoneVerificationRequest>(
       id,
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
       include: include,
     );
   }
 
+  /// Inserts all [DwPhoneVerificationRequest]s in the list and returns the inserted rows.
+  ///
+  /// The returned [DwPhoneVerificationRequest]s will have their `id` fields set.
+  ///
+  /// This is an atomic operation, meaning that if one of the rows fails to
+  /// insert, none of the rows will be inserted.
   Future<List<DwPhoneVerificationRequest>> insert(
     _i1.Session session,
     List<DwPhoneVerificationRequest> rows, {
@@ -417,10 +470,13 @@ class DwPhoneVerificationRequestRepository {
   }) async {
     return session.db.insert<DwPhoneVerificationRequest>(
       rows,
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
     );
   }
 
+  /// Inserts a single [DwPhoneVerificationRequest] and returns the inserted row.
+  ///
+  /// The returned [DwPhoneVerificationRequest] will have its `id` field set.
   Future<DwPhoneVerificationRequest> insertRow(
     _i1.Session session,
     DwPhoneVerificationRequest row, {
@@ -428,10 +484,15 @@ class DwPhoneVerificationRequestRepository {
   }) async {
     return session.db.insertRow<DwPhoneVerificationRequest>(
       row,
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
     );
   }
 
+  /// Updates all [DwPhoneVerificationRequest]s in the list and returns the updated rows. If
+  /// [columns] is provided, only those columns will be updated. Defaults to
+  /// all columns.
+  /// This is an atomic operation, meaning that if one of the rows fails to
+  /// update, none of the rows will be updated.
   Future<List<DwPhoneVerificationRequest>> update(
     _i1.Session session,
     List<DwPhoneVerificationRequest> rows, {
@@ -441,10 +502,13 @@ class DwPhoneVerificationRequestRepository {
     return session.db.update<DwPhoneVerificationRequest>(
       rows,
       columns: columns?.call(DwPhoneVerificationRequest.t),
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
     );
   }
 
+  /// Updates a single [DwPhoneVerificationRequest]. The row needs to have its id set.
+  /// Optionally, a list of [columns] can be provided to only update those
+  /// columns. Defaults to all columns.
   Future<DwPhoneVerificationRequest> updateRow(
     _i1.Session session,
     DwPhoneVerificationRequest row, {
@@ -454,10 +518,13 @@ class DwPhoneVerificationRequestRepository {
     return session.db.updateRow<DwPhoneVerificationRequest>(
       row,
       columns: columns?.call(DwPhoneVerificationRequest.t),
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
     );
   }
 
+  /// Deletes all [DwPhoneVerificationRequest]s in the list and returns the deleted rows.
+  /// This is an atomic operation, meaning that if one of the rows fail to
+  /// be deleted, none of the rows will be deleted.
   Future<List<DwPhoneVerificationRequest>> delete(
     _i1.Session session,
     List<DwPhoneVerificationRequest> rows, {
@@ -465,10 +532,11 @@ class DwPhoneVerificationRequestRepository {
   }) async {
     return session.db.delete<DwPhoneVerificationRequest>(
       rows,
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
     );
   }
 
+  /// Deletes a single [DwPhoneVerificationRequest].
   Future<DwPhoneVerificationRequest> deleteRow(
     _i1.Session session,
     DwPhoneVerificationRequest row, {
@@ -476,10 +544,11 @@ class DwPhoneVerificationRequestRepository {
   }) async {
     return session.db.deleteRow<DwPhoneVerificationRequest>(
       row,
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
     );
   }
 
+  /// Deletes all rows matching the [where] expression.
   Future<List<DwPhoneVerificationRequest>> deleteWhere(
     _i1.Session session, {
     required _i1.WhereExpressionBuilder<DwPhoneVerificationRequestTable> where,
@@ -487,10 +556,12 @@ class DwPhoneVerificationRequestRepository {
   }) async {
     return session.db.deleteWhere<DwPhoneVerificationRequest>(
       where: where(DwPhoneVerificationRequest.t),
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
     );
   }
 
+  /// Counts the number of rows matching the [where] expression. If omitted,
+  /// will return the count of all rows in the table.
   Future<int> count(
     _i1.Session session, {
     _i1.WhereExpressionBuilder<DwPhoneVerificationRequestTable>? where,
@@ -500,7 +571,7 @@ class DwPhoneVerificationRequestRepository {
     return session.db.count<DwPhoneVerificationRequest>(
       where: where?.call(DwPhoneVerificationRequest.t),
       limit: limit,
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
     );
   }
 }
@@ -508,10 +579,12 @@ class DwPhoneVerificationRequestRepository {
 class DwPhoneVerificationRequestAttachRowRepository {
   const DwPhoneVerificationRequestAttachRowRepository._();
 
+  /// Creates a relation between the given [DwPhoneVerificationRequest] and [DwAuthDataStash]
+  /// by setting the [DwPhoneVerificationRequest]'s foreign key `stashDataId` to refer to the [DwAuthDataStash].
   Future<void> stashData(
     _i1.Session session,
     DwPhoneVerificationRequest dwPhoneVerificationRequest,
-    _i2.DwAuthDataStash stashData, {
+    _i3.DwAuthDataStash stashData, {
     _i1.Transaction? transaction,
   }) async {
     if (dwPhoneVerificationRequest.id == null) {
@@ -526,7 +599,7 @@ class DwPhoneVerificationRequestAttachRowRepository {
     await session.db.updateRow<DwPhoneVerificationRequest>(
       $dwPhoneVerificationRequest,
       columns: [DwPhoneVerificationRequest.t.stashDataId],
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
     );
   }
 }
@@ -534,6 +607,11 @@ class DwPhoneVerificationRequestAttachRowRepository {
 class DwPhoneVerificationRequestDetachRowRepository {
   const DwPhoneVerificationRequestDetachRowRepository._();
 
+  /// Detaches the relation between this [DwPhoneVerificationRequest] and the [DwAuthDataStash] set in `stashData`
+  /// by setting the [DwPhoneVerificationRequest]'s foreign key `stashDataId` to `null`.
+  ///
+  /// This removes the association between the two models without deleting
+  /// the related record.
   Future<void> stashData(
     _i1.Session session,
     DwPhoneVerificationRequest dwphoneverificationrequest, {
@@ -548,7 +626,7 @@ class DwPhoneVerificationRequestDetachRowRepository {
     await session.db.updateRow<DwPhoneVerificationRequest>(
       $dwphoneverificationrequest,
       columns: [DwPhoneVerificationRequest.t.stashDataId],
-      transaction: transaction ?? session.transaction,
+      transaction: transaction,
     );
   }
 }
