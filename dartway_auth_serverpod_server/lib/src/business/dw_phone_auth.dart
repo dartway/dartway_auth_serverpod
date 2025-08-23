@@ -11,6 +11,27 @@ const _authMethod = 'phone';
 
 /// Authentication methods for phone.
 class DwPhoneAuth {
+  static String _dwPhoneVerificationChannel(String phone) =>
+      'dwPhoneVerification$phone';
+
+  static createVerificationStream(
+    Session session, {
+    required String phoneNumber,
+  }) =>
+      session.messages.createStream(
+        _dwPhoneVerificationChannel(phoneNumber),
+      );
+
+  static postOnVerificationStream(
+    Session session, {
+    required String phoneNumber,
+    required SerializableModel message,
+  }) async =>
+      await session.messages.postMessage(
+        _dwPhoneVerificationChannel(phoneNumber),
+        message,
+      );
+
   /// Initializes the phone verification process.
   static Future<AuthenticationResponse> requestVerification(
     Session session, {

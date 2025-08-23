@@ -4,9 +4,6 @@ import 'package:serverpod_auth_server/serverpod_auth_server.dart';
 
 /// Endpoint for handling Sign in with phone.
 class PhoneAuthEndpoint extends Endpoint {
-  static String _dwPhoneVerificationChannel(String phone) =>
-      'dwPhoneVerification$phone';
-
   /// Initializes the phone verification process.
   /// Calls initVerificationRequestCallback if it is set.
   Future<AuthenticationResponse> requestVerification(
@@ -46,8 +43,9 @@ class PhoneAuthEndpoint extends Endpoint {
   }) async* {
     session.log('Creating phone verification stream for $phoneNumber');
 
-    final stream = session.messages.createStream(
-      _dwPhoneVerificationChannel(phoneNumber),
+    final stream = DwPhoneAuth.createVerificationStream(
+      session,
+      phoneNumber: phoneNumber,
     );
 
     await for (var message in stream) {
@@ -66,9 +64,10 @@ class PhoneAuthEndpoint extends Endpoint {
     );
 
     if (sendAuthenticationResponseToStream) {
-      session.messages.postMessage(
-        _dwPhoneVerificationChannel(phoneNumber),
-        response,
+      await DwPhoneAuth.postOnVerificationStream(
+        session,
+        phoneNumber: phoneNumber,
+        message: response,
       );
     }
 
