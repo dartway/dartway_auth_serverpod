@@ -14,11 +14,11 @@ class DwPhoneAuth {
   static String _dwPhoneVerificationChannel(String phone) =>
       'dwPhoneVerification$phone';
 
-  static createVerificationStream(
+  static Stream<SerializableModel> createVerificationStream(
     Session session, {
     required String phoneNumber,
   }) =>
-      session.messages.createStream(
+      session.messages.createStream<SerializableModel>(
         _dwPhoneVerificationChannel(phoneNumber),
       );
 

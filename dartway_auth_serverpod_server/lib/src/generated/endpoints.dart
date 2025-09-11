@@ -30,43 +30,6 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'phoneAuth',
       endpoint: endpoints['phoneAuth']!,
       methodConnectors: {
-        'requestVerification': _i1.MethodConnector(
-          name: 'requestVerification',
-          params: {
-            'requestType': _i1.ParameterDescription(
-              name: 'requestType',
-              type: _i1.getType<_i3.DwPhoneVerificationRequestType>(),
-              nullable: false,
-            ),
-            'phoneNumber': _i1.ParameterDescription(
-              name: 'phoneNumber',
-              type: _i1.getType<String>(),
-              nullable: false,
-            ),
-            'requestExtraData': _i1.ParameterDescription(
-              name: 'requestExtraData',
-              type: _i1.getType<Map<String, String>?>(),
-              nullable: true,
-            ),
-            'verificationExtraParams': _i1.ParameterDescription(
-              name: 'verificationExtraParams',
-              type: _i1.getType<Map<String, String>?>(),
-              nullable: true,
-            ),
-          },
-          call: (
-            _i1.Session session,
-            Map<String, dynamic> params,
-          ) async =>
-              (endpoints['phoneAuth'] as _i2.PhoneAuthEndpoint)
-                  .requestVerification(
-            session,
-            params['requestType'],
-            params['phoneNumber'],
-            requestExtraData: params['requestExtraData'],
-            verificationExtraParams: params['verificationExtraParams'],
-          ),
-        ),
         'verifyWithOneTimePassword': _i1.MethodConnector(
           name: 'verifyWithOneTimePassword',
           params: {
@@ -118,14 +81,29 @@ class Endpoints extends _i1.EndpointDispatch {
                 params['sendAuthenticationResponseToStream'],
           ),
         ),
-        'createVerificationStream': _i1.MethodStreamConnector(
-          name: 'createVerificationStream',
+        'startVerification': _i1.MethodStreamConnector(
+          name: 'startVerification',
           params: {
+            'requestType': _i1.ParameterDescription(
+              name: 'requestType',
+              type: _i1.getType<_i3.DwPhoneVerificationRequestType>(),
+              nullable: false,
+            ),
             'phoneNumber': _i1.ParameterDescription(
               name: 'phoneNumber',
               type: _i1.getType<String>(),
               nullable: false,
-            )
+            ),
+            'requestExtraData': _i1.ParameterDescription(
+              name: 'requestExtraData',
+              type: _i1.getType<Map<String, String>?>(),
+              nullable: true,
+            ),
+            'verificationExtraParams': _i1.ParameterDescription(
+              name: 'verificationExtraParams',
+              type: _i1.getType<Map<String, String>?>(),
+              nullable: true,
+            ),
           },
           streamParams: {},
           returnType: _i1.MethodStreamReturnType.streamType,
@@ -135,9 +113,12 @@ class Endpoints extends _i1.EndpointDispatch {
             Map<String, Stream> streamParams,
           ) =>
               (endpoints['phoneAuth'] as _i2.PhoneAuthEndpoint)
-                  .createVerificationStream(
+                  .startVerification(
             session,
+            requestType: params['requestType'],
             phoneNumber: params['phoneNumber'],
+            requestExtraData: params['requestExtraData'],
+            verificationExtraParams: params['verificationExtraParams'],
           ),
         ),
       },

@@ -4,22 +4,101 @@ import 'package:serverpod_auth_server/serverpod_auth_server.dart';
 
 /// Endpoint for handling Sign in with phone.
 class PhoneAuthEndpoint extends Endpoint {
-  /// Initializes the phone verification process.
-  /// Calls initVerificationRequestCallback if it is set.
-  Future<AuthenticationResponse> requestVerification(
-    Session session,
-    DwPhoneVerificationRequestType requestType,
-    String phoneNumber, {
+  // /// Initializes the phone verification process.
+  // /// Calls initVerificationRequestCallback if it is set.
+  // Future<AuthenticationResponse> requestVerification(
+  //   Session session,
+  //   DwPhoneVerificationRequestType requestType,
+  //   String phoneNumber, {
+  //   Map<String, String>? requestExtraData,
+  //   Map<String, String>? verificationExtraParams,
+  // }) {
+  //   return DwPhoneAuth.requestVerification(
+  //     session,
+  //     requestType: requestType,
+  //     phoneNumber: phoneNumber,
+  //     requestExtraData: requestExtraData,
+  //     verificationExtraParams: verificationExtraParams,
+  //   );
+  // }
+
+  // Stream createVerificationStream(
+  //   Session session, {
+  //   required DwPhoneVerificationRequestType requestType,
+  //   required String phoneNumber,
+  //   Map<String, String>? requestExtraData,
+  //   Map<String, String>? verificationExtraParams,
+  // }) async* {
+  //   session.log('Creating phone verification stream for $phoneNumber');
+
+  //   final stream = DwPhoneAuth.createVerificationStream(
+  //     session,
+  //     phoneNumber: phoneNumber,
+  //   );
+
+  //   await for (var message in stream) {
+  //     yield message;
+  //   }
+
+  //   final res = await DwPhoneAuth.requestVerification(
+  //     session,
+  //     requestType: requestType,
+  //     phoneNumber: phoneNumber,
+  //     requestExtraData: requestExtraData,
+  //     verificationExtraParams: verificationExtraParams,
+  //   );
+
+  //   await DwPhoneAuth.postOnVerificationStream(
+  //     session,
+  //     phoneNumber: phoneNumber,
+  //     message: res,
+  //   );
+  // }
+
+  Stream<SerializableModel> startVerification(
+    Session session, {
+    required DwPhoneVerificationRequestType requestType,
+    required String phoneNumber,
     Map<String, String>? requestExtraData,
     Map<String, String>? verificationExtraParams,
-  }) {
-    return DwPhoneAuth.requestVerification(
+  }) async* {
+    session.log('Creating phone verification stream for $phoneNumber');
+
+    final stream = DwPhoneAuth.createVerificationStream(
       session,
-      requestType: requestType,
       phoneNumber: phoneNumber,
-      requestExtraData: requestExtraData,
-      verificationExtraParams: verificationExtraParams,
     );
+
+    // 2) Асинхронно запускаем запрос верификации и публикуем первый апдейт.
+    () async {
+      try {
+        final res = await DwPhoneAuth.requestVerification(
+          session,
+          requestType: requestType,
+          phoneNumber: phoneNumber,
+          requestExtraData: requestExtraData,
+          verificationExtraParams: verificationExtraParams,
+        );
+
+        await DwPhoneAuth.postOnVerificationStream(
+          session,
+          phoneNumber: phoneNumber,
+          message: res,
+        );
+      } catch (e, st) {
+        session.log('startVerification error: $e\n$st');
+        // Если у вас есть тип события об ошибке — пошлите его в тот же канал.
+        // await DwPhoneAuth.postOnVerificationStream(
+        //   session,
+        //   phoneNumber: phoneNumber,
+        //   message: DwPhoneVerificationMessage.error(e.toString()),
+        // );
+      }
+    }(); // fire-and-forget
+
+    await for (var message in stream) {
+      yield message;
+    }
   }
 
   /// Verifies phoneNumber with OneTimePassword.
@@ -35,22 +114,6 @@ class PhoneAuthEndpoint extends Endpoint {
       phoneNumber: phoneNumber,
       oneTimePassword: oneTimePassword,
     );
-  }
-
-  Stream createVerificationStream(
-    Session session, {
-    required String phoneNumber,
-  }) async* {
-    session.log('Creating phone verification stream for $phoneNumber');
-
-    final stream = DwPhoneAuth.createVerificationStream(
-      session,
-      phoneNumber: phoneNumber,
-    );
-
-    await for (var message in stream) {
-      yield message;
-    }
   }
 
   Future<AuthenticationResponse> forceVerification(
